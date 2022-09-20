@@ -6,7 +6,13 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
-async function main() {}
+async function main() {
+    const [deployer] = await ethers.getSigners();
+    let Todo = await ethers.getContractFactory("Todo");
+    let todo = await Todo.deploy();
+
+    console.log(deployer.address, "\n", todo.address);
+}
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
