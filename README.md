@@ -1,13 +1,29 @@
-# Sample Hardhat Project
+# Build With Celo Hardhat Workshop
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+[Youtube Video](https://www.youtube.com/watch?v=W7nGdHKcIFw)
 
-Try running some of the following tasks:
+Clone the repo.
+
+To compile contracts:
 
 ```shell
-npx hardhat help
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+npx hardhat compile
+```
+
+To run tests:
+
+```shell
+npx hardhat tests
+```
+
+To deploy contracts:
+
+```shell
+npx hardhat run scripts/deploy.js --network <network_name>
+```
+
+To verify contracts (using hardhat-celo):
+
+```shell
+npx hardhat verify <contract_address> <constructor_args> --network alfajores
 ```
