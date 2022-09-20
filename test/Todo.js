@@ -16,6 +16,28 @@ describe("Todo", function () {
         return { todo };
     }
 
+    async function oneTaskAdded() {
+        // Load the deployed Todo contract
+        let { todo } = await loadFixture(deployTodo);
+
+        // Add a task
+        await todo.addTask("Submit Idea for BWC Hackathon");
+
+        // return this instance.
+        return { todo };
+    }
+
+    async function oneTaskCompleted() {
+        // Load the Todo instance with one task added.
+        let { todo } = await loadFixture(oneTaskAdded);
+
+        // mark the task as complete.
+        await todo.markTaskComplete(0);
+
+        // return this instance.
+        return { todo };
+    }
+
     it("Should be able to add tasks", async function () {
         // Loading deployed Todo contract
         let { todo } = await loadFixture(deployTodo);
@@ -32,10 +54,8 @@ describe("Todo", function () {
     });
 
     it("Should be able to mark tasks complete", async function () {
-        let { todo } = await loadFixture(deployTodo);
-
-        // Add a task
-        await todo.addTask("Submit Idea to BWC hackathon");
+        // Load the Todo instance with one task added.
+        let { todo } = await loadFixture(oneTaskAdded);
 
         // Try marking the task as complete and expect TaskCompleted event to be emitted.
         await expect(todo.markTaskComplete(0))
@@ -44,13 +64,8 @@ describe("Todo", function () {
     });
 
     it("Should not be able to mark already completed task complete", async function () {
-        let { todo } = await loadFixture(deployTodo);
-
-        // Add a task
-        await todo.addTask("Submit Idea to BWC hackathon");
-
-        // Try marking the task as complete and expect TaskCompleted event to be emitted.
-        await todo.markTaskComplete(0);
+        // Load the Todo instance with one task completed.
+        let { todo } = await loadFixture(oneTaskCompleted);
 
         // Trying to mark an already completed task complete
         await expect(todo.markTaskComplete(0)).to.be.revertedWith(
