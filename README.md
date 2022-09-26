@@ -4,7 +4,7 @@
 
 Clone the repo.
 
-Add respective keys or comment it out if you don't need it:
+Add respective keys or comment it out if you don't need it (`hardhat.config.js`):
 
 ```js
 
